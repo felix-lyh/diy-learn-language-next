@@ -1,4 +1,4 @@
-export default <svg className="icon-collation" viewBox="0 0 1024 1024" version="1.1"
+export default <svg className="icon-vocabulary" viewBox="0 0 1024 1024" version="1.1"
     xmlns="http://www.w3.org/2000/svg" p-id="4616">
     <path d="M175.348135 494.302886h32.596745l-16.420002-53.152156-16.176743 53.152156z" p-id="4617" fill="currentColor"></path>
     <path

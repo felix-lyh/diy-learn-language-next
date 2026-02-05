@@ -3,13 +3,13 @@ import SVGIcon from "@/icons/svg-icon";
 import "./globals.css";
 import '@/i18n'
 import { usePathname,useRouter } from 'next/navigation'
-import { useTranslation } from 'next-i18next'
+import { $t } from '@/utils/index'
 export default function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const routerList = ['collation','listening','speaking','reading','writing'] as const;
+    const routerList = ['vocabulary','listening','speaking','reading','writing'] as const;
     type RouterType = (typeof routerList)[number];
     const router = useRouter();
     const pathname = usePathname()
@@ -18,7 +18,6 @@ export default function RootLayout({
             router.push(`/${pageName}`,{ scroll: false });
         }
     }
-    const { t } = useTranslation()
     const currentPath = ()=>{
         return pathname.slice(1) as RouterType
     }
@@ -31,8 +30,9 @@ export default function RootLayout({
                         {
                             routerList.map((item:RouterType)=>{
                                 return (
-                                    <li onClick={()=>toPage(item)} style={{color:`${currentPath() === item ? '#ABCE98':'#333'}` }} className="flex flex-col items-center min-w-[70px] mt-[15px] cursor-pointer" key={item}>
-                                        <span>{t(item)}</span>
+                                    <li onClick={()=>toPage(item)} 
+                                    className={`${currentPath() === item ? 'text-theme':'text-[#333]'} flex flex-col items-center min-w-[70px] mt-[15px] cursor-pointer`} key={item}>
+                                        <span>{$t(item)}</span>
                                         <SVGIcon
                                             className="dark:invert self-center"
                                             name={item}

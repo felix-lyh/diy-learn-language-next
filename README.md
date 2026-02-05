@@ -1,6 +1,5 @@
-### UI Components : https://ui.shadcn.com/docs/components
-### CSS tailwind : https://tailwindcss.com/docs/installation/using-vite
-### icon Font : https://www.iconfont.cn/search/index
+### 這是一個學習任何語言的工具，像吃牛排一樣自己消化從桌上（你喜歡的任意資源）拿來的牛排，牛排很多，不只是拿在盘子里，更需要吃下去消化
 
-### 這是一個學習任何語言的工具，可以用下面這個谷歌瀏覽器插件收集你想要的語言，然後就可以在這個網站上進行訓練練習
+ 
+### 可以用下面這個谷歌瀏覽器插件收集你想要的語言资源，然後就可以在這個網站上進行訓練練習
 https://github.com/heaven-hub/diy-language-chrome-extension

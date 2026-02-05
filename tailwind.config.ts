@@ -10,6 +10,7 @@ export default {
     theme: {
     	extend: {
     		colors: {
+                theme: '#fb8225', // use in components: text-theme bg-theme
     			background: 'hsl(var(--background))',
     			foreground: 'hsl(var(--foreground))',
     			card: {

@@ -1,7 +1,7 @@
 import { MongoClient }from 'mongodb';
 import type { Collection } from 'mongodb';
 const uri = process.env.MANGO_DB_URI!
-const collectionList = ['users','comments','articles','words'] as const
+const collectionList = ['users','comments','articles','vocabulary'] as const
 const client = new MongoClient(uri);
 let clientPromise = await client.connect();
 const db = clientPromise.db('diy_learn_language');  //資料庫，根據你的需求更改

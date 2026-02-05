@@ -3,7 +3,7 @@ import { apiFetch } from './index';
 export const addArticles = ({ text }:{ text:string }) => {
     return new Promise(async (resolve,reject)=>{
         try {
-            const result = await apiFetch('/api/articles', {
+            const result = await apiFetch('/api/article', {
                 method: 'post',
                 body: { text },
             });

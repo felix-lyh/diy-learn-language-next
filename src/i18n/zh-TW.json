@@ -1,5 +1,5 @@
 {
-    "collation":"詞集",
+    "vocabulary":"詞彙",
     "listening":"聽",
     "speaking":"說",
     "reading":"讀",
@@ -13,10 +13,10 @@
     "article":"文章",
     "common.placeholder":"請輸入",
     "common.save":"保存",
-    "collation.page.header":"收集來的詞匯",
-    "collation.page.header_desc":"詞匯會被自動分成 單詞、短語、句子和文章",
-    "collation.page.header.mode_type.browse":"瀏覽模式",
-    "collation.page.header.mode_type.memory":"記憶模式",
+    "vocabulary.page.header":"收集來的詞匯",
+    "vocabulary.page.header_desc":"詞匯會被自動分成 單詞、短語、句子和文章",
+    "vocabulary.page.header.mode_type.browse":"瀏覽模式",
+    "vocabulary.page.header.mode_type.memory":"記憶模式",
     "wirte_practice.output":"輸出模式",
     "wirte_practice.output.desc":"可以隨意默寫或者聽寫其他音視頻的內容，然後輸出成文章",
     "wirte_practice.training":"訓練模式",
@@ -25,5 +25,12 @@
     "external_resources.ph":"外部音頻或者視頻URL",
     "init_page_banner.title":"點擊任意地方或者按任意鍵開始背單詞",
     "parctice_over":"練習完成",
-    "once_again":"再來一遍"
+    "once_again":"再來一遍",
+    "wirte_practice.header":"阅读模式",
+    "wirte_practice.header_desc":"深入精读收集来的文章，可以在此页面上传或输入喜欢的文章",
+    "select_all":"全选",
+    "edit_btn":"编辑",
+    "complete_btn":"完成",
+    "delete_btn":"删除",
+    "vocabulary_data_source":"数据来源"
 }

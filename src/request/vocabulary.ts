@@ -25,10 +25,10 @@ export const updateWord = ({ original, translation }:{ original:string, translat
         }
     })
 };
-export const getWords = ({ page=1, limit=100}:{ page?:number, limit?:number,sort?:Record<string, 1 | -1>;}) => {
+export const getVocabularyList = ({ page=1, limit=100}:{ page?:number, limit?:number,sort?:Record<string, 1 | -1>;}) => {
     return new Promise(async (resolve,reject)=>{
         try {
-            const result = await apiFetch('/api/words', {
+            const result = await apiFetch('/api/vocabulary', {
                 method: 'get',
                 body: { page, limit }
             });
@@ -38,3 +38,31 @@ export const getWords = ({ page=1, limit=100}:{ page?:number, limit?:number,sort
         }
     })
 };
+
+export const deleteOneVoca = (id:string)=>{
+    return new Promise(async (resolve,reject)=>{
+        try {
+            const result = await apiFetch('/api/vocabulary', {
+                method: 'delete',
+                body: { id }
+            });
+            resolve(result)
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+export const deleteManyVoca = (idList:string[])=>{
+    return new Promise(async (resolve,reject)=>{
+        try {
+            const result = await apiFetch('/api/vocabulary', {
+                method: 'delete',
+                body: { idList }
+            });
+            resolve(result)
+        } catch (error) {
+            reject(error)
+        }
+    })
+}

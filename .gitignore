@@ -41,3 +41,5 @@ localFile.md
 next-env.d.ts
 yarn.lock
 package-lock.json
+
+local.*

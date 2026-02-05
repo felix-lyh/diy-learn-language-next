@@ -1,17 +1,18 @@
 import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
-    eslint: {
-        ignoreDuringBuilds: true,
-    },
     async redirects() {
         return [
             {
                 source: '/',
-                destination: '/collation',
+                destination: '/vocabulary',
                 permanent: true,
             },
         ];
     },
+    // i18n: {
+    //     locales: ['en', 'zh'], // your supported locales
+    //     defaultLocale: 'en',   // fallback locale
+    // },
 };
 
 export default nextConfig;

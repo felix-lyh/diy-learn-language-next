@@ -1,8 +1,7 @@
 "use client"
-// import { useTranslation } from 'next-i18next';
+// import { $t } from '@/utils/index'
 import { useParams } from 'next/navigation';
 export default function Page() {
-    // const { t } = useTranslation()
     const params = useParams();
     return (
         <div>

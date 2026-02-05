@@ -1,27 +1,26 @@
 import { useState, useEffect, useRef,useMemo } from "react";
-import { useTranslation } from 'next-i18next';
-import { useWordsStore } from '@/store/words';
+import { $t } from '@/utils/index'
+import { useVocabularyStore } from '@/store/vocabulary';
 import InitBlock from '@/components/init-block';
 export default function TrainingMode() {
-    const { t } = useTranslation()
     const [isReady,setIsReady] = useState(false)
-    const [currentWordIndex, setCurrentWordIndex] = useState(0);
+    const [currentVocabularyIndex, setCurrentVocaIndex] = useState(0);
     const [currentCharacter, setCurrentCharacter] = useState(0);
     const [isError, setIsError] = useState(false);
-    const { words, fetchWords } = useWordsStore()
+    const { vocabularyList, fetchVocabularyList } = useVocabularyStore()
     const clickSoundRef = useRef<HTMLAudioElement | null>(null);
     const correctSoundRef = useRef<HTMLAudioElement | null>(null);
     const errorSoundRef = useRef<HTMLAudioElement | null>(null);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const currentWord = useMemo(
-        () => words[currentWordIndex],
-        [words, currentWordIndex]
+    const currentVocabulary = useMemo(
+        () => vocabularyList[currentVocabularyIndex],
+        [vocabularyList, currentVocabularyIndex]
     );
-    const currentWordRef = useRef(currentWord);
+    const currentVocaRef = useRef(currentVocabulary);
     const currentCharacterRef = useRef(currentCharacter);
 
     const resetAgainBtn = ()=>{
-        setCurrentWordIndex(0)
+        setCurrentVocaIndex(0)
         setCurrentCharacter(0)
     }
     useEffect(() => {
@@ -31,8 +30,8 @@ export default function TrainingMode() {
         const handleInit = ()=>{
             setIsReady(true)
         }
-        fetchWords({}).then(()=>{
-            setCurrentWordIndex(0)
+        fetchVocabularyList({refresh:false}).then(()=>{
+            setCurrentVocaIndex(0)
         })
         window.addEventListener('click',handleInit)
         window.addEventListener('keydown',handleInit)
@@ -42,15 +41,15 @@ export default function TrainingMode() {
         }
     }, [])
     useEffect(() => {
-        currentWordRef.current = currentWord;
+        currentVocaRef.current = currentVocabulary;
         currentCharacterRef.current = currentCharacter;
-    }, [currentWord, currentCharacter]);
+    }, [currentVocabulary, currentCharacter]);
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             const key = e.key.toLowerCase();
-            const word = currentWordRef.current;
+            const currentVocabulary = currentVocaRef.current;
             const charIndex = currentCharacterRef.current;
-            const original = word?.original.toLowerCase();
+            const original = currentVocabulary?.vocabulary.toLowerCase();
             if (key === original[charIndex]) {
                 if (clickSoundRef.current) {
                     clickSoundRef.current.currentTime = 0;
@@ -58,7 +57,7 @@ export default function TrainingMode() {
                 }
                 setCurrentCharacter((prev) =>prev + 1);
                 if(charIndex+1 === original.length){
-                    setCurrentWordIndex((pre)=>pre + 1)
+                    setCurrentVocaIndex((pre)=>pre + 1)
                     setCurrentCharacter(0);
                     if (correctSoundRef.current) {
                         correctSoundRef.current.currentTime = 0;
@@ -90,7 +89,7 @@ export default function TrainingMode() {
             { !isReady && <InitBlock/> }
             <div className="flex flex-col items-center text-3xl space-x-2">
                 <div>
-                    {currentWord?.original.split("").map((letter, index) => (
+                    {currentVocabulary?.vocabulary.split("").map((letter, index) => (
                         <span
                             key={index}
                             className={`px-1 transition-colors duration-200 ${index < currentCharacter
@@ -104,11 +103,11 @@ export default function TrainingMode() {
                         </span>
                     ))}
                 </div>
-                <div className="my-[10px]">{currentWord?.translation}</div>
-                { !currentWord?.original &&
+                <div className="my-[10px]">{currentVocabulary?.translations}</div>
+                { !currentVocabulary?.vocabulary &&
                     <div>
-                        <span className="mr-[3px]">{t('parctice_over')}</span>
-                        <span onClick={resetAgainBtn} className="text-[#36bcf8] underline cursor-pointer">{ t('once_again')}</span>
+                        <span className="mr-[3px]">{$t('parctice_over')}</span>
+                        <span onClick={resetAgainBtn} className="text-[#36bcf8] underline cursor-pointer">{ $t('once_again')}</span>
                     </div>
                 }
             </div>

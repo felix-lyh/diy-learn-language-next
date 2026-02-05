@@ -1,14 +1,18 @@
 import { useEffect, useState, useRef } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import { addArticles } from '@/request/articles';
-import { useTranslation } from 'next-i18next';
+import { addArticles } from '@/request/article';
+import { $t } from '@/utils/index'
+import clientSystem from "@/client-system";
+import { Button } from "@/components/ui/button"
 export default function OutputMode() {
-    const { t } = useTranslation()
     const [textValue, setTextValue] = useState('');
     const textRef = useRef(textValue);
     const saveArticleBtn = () => {
+        if(!textRef.current){
+            return
+        }
         addArticles({ text: textRef.current })
-            .then(res => {
+            .then(() => {
             }).catch(() => {
 
             })
@@ -30,10 +34,11 @@ export default function OutputMode() {
     }, []);
     return (
         <div>
-            <Textarea className="mt-[15px]" value={textValue} rows={6} onChange={(e) => {textAreaChange(e.target.value)}} placeholder={t('common.placeholder')} />
-            <div className="flex justify-end mt-[15px]">
-                <span onClick={saveArticleBtn} className="py-[5px] px-[7px] text-[18px] text-blue-500 border border-solid rounded-lg cursor-pointer">{t('common.save')}</span>
-            </div>
+            <Textarea className="mt-[15px]" value={textValue} rows={6} onChange={(e) => {textAreaChange(e.target.value)}} placeholder={$t('common.placeholder')} />
+            <Button disabled={!textValue} variant="outline" onClick={saveArticleBtn} className="flex w-fit ml-auto mt-[15px] py-[5px] px-[7px] text-[18px] text-blue-500 border border-solid rounded-lg cursor-pointer">
+                <span  className="mr-[5px]">{$t('common.save')}</span>
+                <span>{ clientSystem.modifierKeyPrefix } + s  </span>
+            </Button>
         </div>
     );
 };

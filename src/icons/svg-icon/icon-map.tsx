@@ -1,5 +1,5 @@
 import nextIcon from '../svg/next';
-import collationIcon from '../svg/collation';
+import vocabularyIcon from '../svg/vocabulary';
 import infoTipsIcon from '../svg/info-tips';
 import listeningIcon from '../svg/listening';
 import notPassIcon from '../svg/not-pass';
@@ -14,13 +14,14 @@ import addFolder from '../svg/add-folder';
 import sendIcon from '../svg/send-icon'
 import viewIcon from '../svg/view'
 import noViewIcon from '../svg/no-view'
+import upload from '../svg/upload'
 export const iconMap = {
     'not-pass': notPassIcon,
     'info-tips': infoTipsIcon,
     'voice-player':voicePlayer,
     'stop-voice':stopVoice,
     next: nextIcon,
-    collation: collationIcon,
+    vocabulary: vocabularyIcon,
     listening: listeningIcon,
     speaking: speakingIcon,
     reading: readingIcon,
@@ -30,7 +31,8 @@ export const iconMap = {
     addFolder,
     sendIcon,
     viewIcon,
-    noViewIcon
+    noViewIcon,
+    upload
 };
 
 export type IconName = keyof typeof iconMap;
