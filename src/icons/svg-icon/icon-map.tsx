@@ -15,7 +15,9 @@ import sendIcon from '../svg/send-icon'
 import viewIcon from '../svg/view'
 import noViewIcon from '../svg/no-view'
 import upload from '../svg/upload'
+import edit from '../svg/edit'
 export const iconMap = {
+    edit,
     'not-pass': notPassIcon,
     'info-tips': infoTipsIcon,
     'voice-player':voicePlayer,

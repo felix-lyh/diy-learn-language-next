@@ -1,6 +1,6 @@
 import { iconMap, IconName } from './icon-map';
 
-type SVGIconProps = {
+type SvgIconProps = {
     name: IconName;
     width?: number | string;
     height?:number | string;
@@ -8,7 +8,7 @@ type SVGIconProps = {
     className?: string;
 };
 
-const SVGIcon = ({ name, width = 24,height, color = 'currentColor', className='' }: SVGIconProps) => {
+const SvgIcon = ({ name, width = 24,height, color = 'currentColor', className='' }: SvgIconProps) => {
     const IconComponent = iconMap[name];
 
     if (!IconComponent) return null;
@@ -16,4 +16,4 @@ const SVGIcon = ({ name, width = 24,height, color = 'currentColor', className=''
     return <div style={{width,height:height||width,color}} className={`flex ${className}`}>{IconComponent}</div>
 };
 
-export default SVGIcon;
+export default SvgIcon;

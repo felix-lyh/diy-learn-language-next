@@ -47,12 +47,13 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
     try {
         const query:VocabularyDataType = await req.json(); // 解析 JSON 資料
-        const { id,vocabulary, translations } = query;
+        const { id } = query;
         if(!!id){
-            await db.vocabulary.updateOne({id},{ vocabulary, translations })
+            await db.vocabulary.updateOne({id},{$set: query})
+        }else{
+            return NextResponse.json({ error: 'Invalid request there is no id' }, { status: 400 });
         }
-        await db.vocabulary.insertOne({ vocabulary, translations })
-        return NextResponse.json({ message: 'vocabulary saved successfully' }, { status: 200 });
+        return NextResponse.json({ message: 'vocabulary updated successfully' }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
     }

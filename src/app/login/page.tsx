@@ -1,5 +1,5 @@
 'use client';
-// import SVGIcon from '@/icons/svg-icon';
+// import SvgIcon from '@/icons/svg-icon';
 // import { $t } from '@/utils/index'
 export default function Page() {
     return (

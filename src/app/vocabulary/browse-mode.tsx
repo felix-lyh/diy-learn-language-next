@@ -65,7 +65,8 @@ export default function browseMode() {
                     {...vocabulary} 
                     isEditSate={isEditSate} 
                     isChecked={selectedRows.includes(vocabulary.id)} 
-                    onSelectChange={onSelectChange} key={vocabulary.id}
+                    onSelectChange={onSelectChange} 
+                    key={vocabulary.id}
                     onUpdateVacoList={()=>fetchVocabularyList({refresh:true})}
                     > 
                     </BrowseCard>)

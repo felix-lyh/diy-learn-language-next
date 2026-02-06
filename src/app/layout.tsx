@@ -1,5 +1,5 @@
 "use client";
-import SVGIcon from "@/icons/svg-icon";
+import SvgIcon from "@/icons/svg-icon";
 import "./globals.css";
 import '@/i18n'
 import { usePathname,useRouter } from 'next/navigation'
@@ -33,7 +33,7 @@ export default function RootLayout({
                                     <li onClick={()=>toPage(item)} 
                                     className={`${currentPath() === item ? 'text-theme':'text-[#333]'} flex flex-col items-center min-w-[70px] mt-[15px] cursor-pointer`} key={item}>
                                         <span>{$t(item)}</span>
-                                        <SVGIcon
+                                        <SvgIcon
                                             className="dark:invert self-center"
                                             name={item}
                                             width={30}

@@ -21,9 +21,16 @@ export async function speakWithVoice(text: string, onStart?: () => void, onEnd?:
         console.log('TTS 開始播放');
         onStart?.();
     };
-    utter.onend = () => onEnd?.();
-    utter.onerror = () => onEnd?.(); // 出錯時也結束
-    speechSynthesis.cancel(); // 先取消前一次的朗讀
+    utter.onend = () => {
+        onEnd?.()
+    };
+    utter.onerror = (err) => {
+        console.error(err)
+        onEnd?.()
+    }; // 出錯時也結束
+    if (speechSynthesis.speaking || speechSynthesis.pending) {
+        speechSynthesis.cancel();
+    }
     speechSynthesis.speak(utter);
 }
 export function stopVoice() {

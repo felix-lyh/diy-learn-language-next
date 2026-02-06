@@ -1,23 +1,25 @@
 import { apiFetch } from './index';
-export const addWord = ({ original, translation }:{ original:string, translation:string }) => {
+import type { VocabularyDataType } from '@/type/vocabulary'
+type QueryVocabulary = Partial<VocabularyDataType>;
+// export const addVocabulary = ({ original, translation }:{ original:string, translation:string }) => {
+//     return new Promise(async (resolve,reject)=>{
+//         try {
+//             const result = await apiFetch('/api/vocabulary', {
+//                 method: 'post',
+//                 body: { original, translation },
+//             });
+//             resolve(result)
+//         } catch (error) {
+//             reject(error)
+//         }
+//     })
+// };
+export const updateVocabulary = (query:QueryVocabulary) => {
     return new Promise(async (resolve,reject)=>{
         try {
-            const result = await apiFetch('/api/words', {
-                method: 'post',
-                body: { original, translation },
-            });
-            resolve(result)
-        } catch (error) {
-            reject(error)
-        }
-    })
-};
-export const updateWord = ({ original, translation }:{ original:string, translation:string }) => {
-    return new Promise(async (resolve,reject)=>{
-        try {
-            const result = await apiFetch('/api/words', {
+            const result = await apiFetch('/api/vocabulary', {
                 method: 'put',
-                body: { original, translation },
+                body: query,
             });
             resolve(result)
         } catch (error) {

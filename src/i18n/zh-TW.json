@@ -32,5 +32,7 @@
     "edit_btn":"编辑",
     "complete_btn":"完成",
     "delete_btn":"删除",
-    "vocabulary_data_source":"数据来源"
+    "vocabulary_data_source":"数据来源",
+    "input_translations":"请补充翻译或解释",
+    "input_examples":"请补充例句"
 }

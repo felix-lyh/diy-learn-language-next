@@ -1,5 +1,5 @@
 "use client";
-import SVGIcon from "@/icons/svg-icon";
+import SvgIcon from "@/icons/svg-icon";
 import { useState } from "react";
 import PlayVoice from "@/components/play-voice";
 import type { VocabularyDataType } from '@/type/vocabulary'
@@ -30,7 +30,7 @@ export default function MemoryCard(modelValue: PropType) {
             <div className="flex justify-end">
                 {modelValue.vocabularySourceWeb && <a href={modelValue.vocabularySourceWeb} target="_blank" className="underline mr-[10px] text-[#409EFF] text-[12px]">{$t('vocabulary_data_source')}</a>}
                 <span className="mr-[15px] cursor-pointer" onClick={handleViewBtn}>
-                    { isview ? <SVGIcon width={20} name="viewIcon"/> : <SVGIcon width={20} name="noViewIcon"/> }
+                    { isview ? <SvgIcon width={20} name="viewIcon"/> : <SvgIcon width={20} name="noViewIcon"/> }
                 </span>
                 { modelValue.vocabulary && <PlayVoice voiceValue={modelValue.vocabulary} /> }
             </div>
@@ -44,8 +44,8 @@ export default function MemoryCard(modelValue: PropType) {
                 {modelValue.examples}
             </div>
             <div className="flex justify-between items-center mt-[15px]">
-                <span className={`${modelValue.notPrev ? 'cursor-not-allowed opacity-[0.3]' : 'cursor-pointer'} transform rotate-180`} onClick={prevWord}><SVGIcon name="next" color="#000" width={50}/></span>
-                <span className={`${modelValue.notNext ? 'cursor-not-allowed opacity-[0.3]' : 'cursor-pointer'}`} onClick={nextWord}><SVGIcon name="next" color="#000" width={50}/></span>
+                <span className={`${modelValue.notPrev ? 'cursor-not-allowed opacity-[0.3]' : 'cursor-pointer'} transform rotate-180`} onClick={prevWord}><SvgIcon name="next" color="#000" width={50}/></span>
+                <span className={`${modelValue.notNext ? 'cursor-not-allowed opacity-[0.3]' : 'cursor-pointer'}`} onClick={nextWord}><SvgIcon name="next" color="#000" width={50}/></span>
             </div>
         </div>
     )
