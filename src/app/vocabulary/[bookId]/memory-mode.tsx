@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
-import MemoryCard from '@/app/vocabulary/components/memory-card';
+import MemoryCard from '@/app/vocabulary/[bookId]/components/memory-card';
 import InitBlock from '@/components/init-block';
 import { useVocabularyStore } from '@/store/vocabulary';
+import { useParams } from 'next/navigation'
+import { $t } from '@/utils/index'
 export default function memoryMode() {
     const [isReady, setIsReady] = useState(false)
     const { vocabularyList, fetchVocabularyList } = useVocabularyStore()
     const [currentIndex, setCurrentIndex] = useState(0)
+    const params = useParams()
+    let bookId = params.bookId as string
     const nextVocabularyFun = () => {
         if (currentIndex >= vocabularyList.length - 1) return;
         setCurrentIndex((pre) => {
@@ -25,7 +29,7 @@ export default function memoryMode() {
         }
         window.addEventListener('click', handleInit)
         window.addEventListener('keydown', handleInit)
-        fetchVocabularyList({refresh:false})
+        fetchVocabularyList({bookId,refresh:false})
         return () => {
             window.removeEventListener('click', handleInit);
             window.removeEventListener('keydown', handleInit);
@@ -33,8 +37,8 @@ export default function memoryMode() {
     }, [])
     return (
         <div className='flex justify-center items-center h-[50vh]'>
-            { !isReady && <InitBlock />}
-            {isReady &&
+            { !isReady && vocabularyList.length &&  <InitBlock />}
+            {isReady && vocabularyList.length ?
                 <MemoryCard
                     {...vocabularyList[currentIndex]}
                     notNext={currentIndex >= (vocabularyList.length - 1)}
@@ -42,7 +46,10 @@ export default function memoryMode() {
                     onNextFun={nextVocabularyFun}
                     onPrevFun={prevVocabularyFun}
                 >
-                </MemoryCard>}
+                </MemoryCard>
+                :
+                <div className='w-full mt-[30px] text-2xl text-center'>{ $t('vocabulary_empty') }</div>
+            }
         </div>
     );
 };

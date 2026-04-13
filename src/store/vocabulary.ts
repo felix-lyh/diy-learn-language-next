@@ -6,7 +6,7 @@ interface VocabularyStore {
     vocabularyList: VocabularyDataType[]
     loading: boolean
     error: string | null
-    fetchVocabularyList: (params:{page?:number;limit?:number;refresh:boolean}) => Promise<void>
+    fetchVocabularyList: (params:{bookId:string;page?:number;limit?:number;refresh:boolean}) => Promise<void>
 }
 
 export const useVocabularyStore = create<VocabularyStore>((set,get) => ({
@@ -14,7 +14,7 @@ export const useVocabularyStore = create<VocabularyStore>((set,get) => ({
     loading: false,
     error: null,
 
-    fetchVocabularyList: async ({page = 1,limit = 0,refresh = false }) => {
+    fetchVocabularyList: async ({bookId,page = 1,limit = 0,refresh = false }) => {
         const { loading } = get()
         if(loading){
             return
@@ -27,7 +27,7 @@ export const useVocabularyStore = create<VocabularyStore>((set,get) => ({
         set({ loading: true, error: null })
         return new Promise(async (resolve,reject)=>{
             try {
-                const res:any = await getVocabularyList({page,limit })
+                const res:any = await getVocabularyList({ bookId,page,limit })
                 const data = res.data
                 set({ vocabularyList: data || [], loading: false })
                 resolve(data)

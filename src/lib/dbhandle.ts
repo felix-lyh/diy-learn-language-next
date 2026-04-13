@@ -24,7 +24,7 @@ export async function paginate(
     options: PaginateOptions = {},
     query: Document = {},
 ): Promise<PaginateResult> {
-    const { page = 1, limit = 10, sort = { _id: -1 } } = options;
+    const { page = 1, limit = 0, sort = { _id: -1 } } = options;
     let pageSize = Number(page)
     let pageLimit = Number(limit)
     const skip = (pageSize - 1) * pageLimit;

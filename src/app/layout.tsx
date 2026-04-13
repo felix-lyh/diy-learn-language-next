@@ -9,7 +9,7 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const routerList = ['vocabulary','listening','speaking','reading','writing'] as const;
+    const routerList = [ 'vocabulary','listening','speaking','reading','writing' ] as const;
     type RouterType = (typeof routerList)[number];
     const router = useRouter();
     const pathname = usePathname()

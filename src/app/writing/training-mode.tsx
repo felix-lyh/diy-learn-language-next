@@ -1,9 +1,19 @@
-import { useState, useEffect, useRef,useMemo } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { $t } from '@/utils/index'
 import { useVocabularyStore } from '@/store/vocabulary';
 import InitBlock from '@/components/init-block';
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { getBooks } from '@/request/book'
+import type { VocabularyBookType } from '@/type/vocabularyBook'
 export default function TrainingMode() {
-    const [isReady,setIsReady] = useState(false)
+    const [isReady, setIsReady] = useState(false)
     const [currentVocabularyIndex, setCurrentVocaIndex] = useState(0);
     const [currentCharacter, setCurrentCharacter] = useState(0);
     const [isError, setIsError] = useState(false);
@@ -19,7 +29,7 @@ export default function TrainingMode() {
     const currentVocaRef = useRef(currentVocabulary);
     const currentCharacterRef = useRef(currentCharacter);
 
-    const resetAgainBtn = ()=>{
+    const resetAgainBtn = () => {
         setCurrentVocaIndex(0)
         setCurrentCharacter(0)
     }
@@ -27,23 +37,21 @@ export default function TrainingMode() {
         clickSoundRef.current = new Audio('/sounds/click2.wav')
         correctSoundRef.current = new Audio('/sounds/correct.wav')
         errorSoundRef.current = new Audio('/sounds/click-error.wav')
-        const handleInit = ()=>{
+        const handleInit = () => {
             setIsReady(true)
         }
-        fetchVocabularyList({refresh:false}).then(()=>{
-            setCurrentVocaIndex(0)
-        })
-        window.addEventListener('click',handleInit)
-        window.addEventListener('keydown',handleInit)
-        return ()=>{
-            window.removeEventListener('click',handleInit);
-            window.removeEventListener('keydown',handleInit);
+        window.addEventListener('click', handleInit)
+        window.addEventListener('keydown', handleInit)
+        return () => {
+            window.removeEventListener('click', handleInit);
+            window.removeEventListener('keydown', handleInit);
         }
     }, [])
     useEffect(() => {
         currentVocaRef.current = currentVocabulary;
         currentCharacterRef.current = currentCharacter;
     }, [currentVocabulary, currentCharacter]);
+
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             const key = e.key.toLowerCase();
@@ -55,9 +63,9 @@ export default function TrainingMode() {
                     clickSoundRef.current.currentTime = 0;
                     clickSoundRef.current.play().catch(() => { });
                 }
-                setCurrentCharacter((prev) =>prev + 1);
-                if(charIndex+1 === original.length){
-                    setCurrentVocaIndex((pre)=>pre + 1)
+                setCurrentCharacter((prev) => prev + 1);
+                if (charIndex + 1 === original.length) {
+                    setCurrentVocaIndex((pre) => pre + 1)
                     setCurrentCharacter(0);
                     if (correctSoundRef.current) {
                         correctSoundRef.current.currentTime = 0;
@@ -65,7 +73,7 @@ export default function TrainingMode() {
                     }
                 }
             } else {
-                if(errorSoundRef.current){
+                if (errorSoundRef.current) {
                     errorSoundRef.current.currentTime = 0;
                     errorSoundRef.current.play().catch(() => { });
                 }
@@ -84,9 +92,38 @@ export default function TrainingMode() {
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, []);
 
+    const [bookList,setBookList] = useState<VocabularyBookType[]>([])
+    const [bookId,setBookId] = useState('')
+    useEffect(()=>{
+        getBooks({limit:0,page:1}).then((res:any)=>{
+            let list = res?.data || []
+            setBookList(list)
+        })
+    },[])
+    useEffect(()=>{
+        fetchVocabularyList({ bookId,refresh: false }).then(() => {
+            setCurrentVocaIndex(0)
+        })
+    },[bookId])
     return (
-        <div className="relative flex items-center justify-center h-screen">
-            { !isReady && <InitBlock/> }
+        <div className="relative h-screen">
+            {!isReady && <InitBlock />}
+            <div className="flex justify-end">
+                <Select defaultValue="" value={bookId} onValueChange={(e)=>{setBookId(e)}}>
+                    <SelectTrigger className="w-full max-w-48">
+                        <SelectValue placeholder={$t('select_book')} />
+                    </SelectTrigger>
+                    <SelectContent
+                        position={"popper"}
+                    >
+                        <SelectGroup>
+                            { bookList.map(book=>{
+                                return <SelectItem value={book.bookId} key={book.bookId}>{book.bookName}</SelectItem>
+                            }) }
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
+            </div>
             <div className="flex flex-col items-center text-3xl space-x-2">
                 <div>
                     {currentVocabulary?.vocabulary.split("").map((letter, index) => (
@@ -104,10 +141,10 @@ export default function TrainingMode() {
                     ))}
                 </div>
                 <div className="my-[10px]">{currentVocabulary?.translations}</div>
-                { !currentVocabulary?.vocabulary &&
+                {!currentVocabulary?.vocabulary &&
                     <div>
                         <span className="mr-[3px]">{$t('parctice_over')}</span>
-                        <span onClick={resetAgainBtn} className="text-[#36bcf8] underline cursor-pointer">{ $t('once_again')}</span>
+                        <span onClick={resetAgainBtn} className="text-[#36bcf8] underline cursor-pointer">{$t('once_again')}</span>
                     </div>
                 }
             </div>

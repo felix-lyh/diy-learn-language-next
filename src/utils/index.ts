@@ -12,3 +12,7 @@ export async function copyText(text: string) {
         console.error('Copy failed', err)
     }
 }
+
+export const isOneWord = (text: string) => {
+    return text.trim().split(/\s+/).length === 1
+}

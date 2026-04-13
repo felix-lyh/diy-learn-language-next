@@ -2,13 +2,19 @@ import db from '@/lib/mongodb';
 import { ObjectId } from 'mongodb'
 import { NextRequest, NextResponse } from 'next/server';
 import { paginate } from '@/lib/dbhandle';
-import type { VocabularyDataType} from '@/type/vocabulary'
+import type { VocabularyDataType } from '@/type/vocabulary'
 export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams;
     // console.log('searchParams',searchParams)
-    const { page,limit,type } = Object.fromEntries(searchParams.entries());
+    const {bookId, page,limit,type,vocabularySourceWeb } = Object.fromEntries(searchParams.entries());
     const options = { page,limit }
-    const query = { type }
+    const query = { bookId,type,vocabularySourceWeb }
+    Object.keys(query).forEach((item)=>{
+        const key = item as keyof typeof query
+        if (!query[key]) {
+            delete query[key]
+        }
+    })
     // console.log('query',query)
     try {
         const vocabulary = await paginate(db.vocabulary,options,query)
@@ -24,10 +30,11 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
     try {
         const query = await req.json(); // 解析 JSON 資料
-        const { vocabulary, translations, examples,vocabularySourceWeb='' } = query as VocabularyDataType;
+        const { vocabulary, translations, examples,vocabularySourceWeb='',bookId,XPath} = query as VocabularyDataType;
         const createTime = Date.now();
         // const reviewTime = Date.now();
         const insertData:VocabularyDataType = {
+            bookId,
             id: (new ObjectId).toString(),
             vocabulary, 
             translations, 
@@ -35,7 +42,8 @@ export async function POST(req: NextRequest) {
             createTime,
             update:createTime,
             reviewTime:createTime,
-            vocabularySourceWeb
+            vocabularySourceWeb,
+            XPath
         }
         await db.vocabulary.insertOne(insertData)
         return NextResponse.json({ message: 'vocabulary saved successfully' }, { status: 200 });
@@ -55,7 +63,7 @@ export async function PUT(req: NextRequest) {
         }
         return NextResponse.json({ message: 'vocabulary updated successfully' }, { status: 200 });
     } catch (error) {
-        return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
+        return NextResponse.json({ error: 'Invalid request' }, { status: 500 });
     }
 }
 // delete vocabulary

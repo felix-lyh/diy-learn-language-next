@@ -18,7 +18,7 @@ export async function speakWithVoice(text: string, onStart?: () => void, onEnd?:
     utter.lang = selected?.lang || 'en-US';
     utter.rate = 1
     utter.onstart = () => {
-        console.log('TTS 開始播放');
+        console.log('TTS start play');
         onStart?.();
     };
     utter.onend = () => {
@@ -27,7 +27,7 @@ export async function speakWithVoice(text: string, onStart?: () => void, onEnd?:
     utter.onerror = (err) => {
         console.error(err)
         onEnd?.()
-    }; // 出錯時也結束
+    }; // ending when it error
     if (speechSynthesis.speaking || speechSynthesis.pending) {
         speechSynthesis.cancel();
     }

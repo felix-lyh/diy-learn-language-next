@@ -1,21 +1,25 @@
 import { apiFetch } from './index';
 import type { VocabularyDataType } from '@/type/vocabulary'
 type QueryVocabulary = Partial<VocabularyDataType>;
-// export const addVocabulary = ({ original, translation }:{ original:string, translation:string }) => {
-//     return new Promise(async (resolve,reject)=>{
-//         try {
-//             const result = await apiFetch('/api/vocabulary', {
-//                 method: 'post',
-//                 body: { original, translation },
-//             });
-//             resolve(result)
-//         } catch (error) {
-//             reject(error)
-//         }
-//     })
-// };
-export const updateVocabulary = (query:QueryVocabulary) => {
-    return new Promise(async (resolve,reject)=>{
+
+type AddVocaType = Pick<VocabularyDataType, "vocabulary" | "translations" | "examples" | "bookId">
+
+export const addVocabulary = ({ vocabulary, translations = '', examples = '',bookId }: AddVocaType) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const result = await apiFetch('/api/vocabulary', {
+                method: 'post',
+                body: { vocabulary, translations, examples,bookId },
+            });
+            resolve(result)
+        } catch (error) {
+            reject(error)
+        }
+    })
+};
+
+export const updateVocabulary = (query: QueryVocabulary) => {
+    return new Promise(async (resolve, reject) => {
         try {
             const result = await apiFetch('/api/vocabulary', {
                 method: 'put',
@@ -27,12 +31,12 @@ export const updateVocabulary = (query:QueryVocabulary) => {
         }
     })
 };
-export const getVocabularyList = ({ page=1, limit=100}:{ page?:number, limit?:number,sort?:Record<string, 1 | -1>;}) => {
-    return new Promise(async (resolve,reject)=>{
+export const getVocabularyList = ({ bookId, page = 1, limit = 100, }: { bookId: string; page?: number, limit?: number, sort?: Record<string, 1 | -1>; }) => {
+    return new Promise(async (resolve, reject) => {
         try {
             const result = await apiFetch('/api/vocabulary', {
                 method: 'get',
-                body: { page, limit }
+                body: { bookId, page, limit }
             });
             resolve(result)
         } catch (error) {
@@ -41,8 +45,8 @@ export const getVocabularyList = ({ page=1, limit=100}:{ page?:number, limit?:nu
     })
 };
 
-export const deleteOneVoca = (id:string)=>{
-    return new Promise(async (resolve,reject)=>{
+export const deleteOneVoca = (id: string) => {
+    return new Promise(async (resolve, reject) => {
         try {
             const result = await apiFetch('/api/vocabulary', {
                 method: 'delete',
@@ -55,8 +59,8 @@ export const deleteOneVoca = (id:string)=>{
     })
 }
 
-export const deleteManyVoca = (idList:string[])=>{
-    return new Promise(async (resolve,reject)=>{
+export const deleteManyVoca = (idList: string[]) => {
+    return new Promise(async (resolve, reject) => {
         try {
             const result = await apiFetch('/api/vocabulary', {
                 method: 'delete',

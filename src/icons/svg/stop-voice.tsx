@@ -1,1 +1,1 @@
-export default <svg width="20" height="20" viewBox="0 0 24 24" focusable="false" ><g><rect fill="none" height="24" width="24"></rect></g><g><g><path d="M6,6h12v12H6V6z"></path></g></g></svg>
+export default <svg viewBox="0 0 24 24" focusable="false" ><g><rect fill="none" height="24" width="24"></rect></g><g><g><path d="M6,6h12v12H6V6z"></path></g></g></svg>

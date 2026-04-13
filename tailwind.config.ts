@@ -10,7 +10,7 @@ export default {
     theme: {
     	extend: {
     		colors: {
-                theme: '#fb8225', // use in components: text-theme bg-theme
+                theme: '#1ABC9C', // use in components: text-theme bg-theme
     			background: 'hsl(var(--background))',
     			foreground: 'hsl(var(--foreground))',
     			card: {
@@ -22,7 +22,7 @@ export default {
     				foreground: 'hsl(var(--popover-foreground))'
     			},
     			primary: {
-    				DEFAULT: 'hsl(var(--primary))',
+    				DEFAULT: '#1ABC9C',
     				foreground: 'hsl(var(--primary-foreground))'
     			},
     			secondary: {
@@ -41,9 +41,9 @@ export default {
     				DEFAULT: 'hsl(var(--destructive))',
     				foreground: 'hsl(var(--destructive-foreground))'
     			},
-    			border: 'hsl(var(--border))',
+    			border: '#1ABC9C',
     			input: 'hsl(var(--input))',
-    			ring: 'hsl(var(--ring))',
+    			ring: '#1ABC9C',
     			chart: {
     				'1': 'hsl(var(--chart-1))',
     				'2': 'hsl(var(--chart-2))',
